@@ -20,7 +20,7 @@ export const NavLink = styled(Link)`
   font-size: 14px;
   font-weight: 600;
   cursor: pointer;
-  &.active {
+  &&.active {
     color: white;
     background-color: #000;
   }

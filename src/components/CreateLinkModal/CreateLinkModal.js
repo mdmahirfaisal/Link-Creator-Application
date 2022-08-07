@@ -35,8 +35,6 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData }) => {
     const linkModalClose = () => setLinkModalOpen(false);
 
     const loadRequirementData = (data, { name }) => {
-        console.log(data);
-        console.log(name);
         dispatch(handleGetCsvData(data))
         dispatch(handleRequirementsData(data))
     };
@@ -90,9 +88,6 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData }) => {
         setTargetData(null)
         setLinkType("")
     }
-
-    // const index = linkedData.indexOf(actionData.source);
-    // console.log(index, linkedData.length)
 
     // Csv Opener
     const handleOpenCSV = (id) => document.getElementById(id).click();
