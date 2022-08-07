@@ -22,7 +22,6 @@ const Home = () => {
         transformHeader: header =>
             header.toLowerCase().replace(/\W/g, '_')
     }
-
     const handleError = (err) => {
         console.log(err);
     }

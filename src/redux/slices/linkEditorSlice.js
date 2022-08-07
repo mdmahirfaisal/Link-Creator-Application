@@ -1,46 +1,10 @@
 import { createSlice } from '@reduxjs/toolkit';
-const rows = [
-    {
-        id: 1,
-        Source: 'http://api.example.com/requirement/1',
-        LinkType: 'ValidatedBy',
-        Target: 'http://api.example.com/testcase/4'
-    },
-    {
-        id: 2,
-        Source: 'http://api.example.com/requirement/1',
-        LinkType: 'ValidatedBy',
-        Target: 'http://api.example.com/testcase/4'
-    },
-    {
-        id: 3,
-        Source: 'http://api.example.com/requirement/1',
-        LinkType: 'ValidatedBy',
-        Target: 'http://api.example.com/testcase/4'
-    },
-    {
-        id: 4,
-        Source: 'http://api.example.com/requirement/1',
-        LinkType: 'ValidatedBy',
-        Target: 'http://api.example.com/testcase/4'
-    },
-    {
-        id: 5,
-        Source: 'http://api.example.com/requirement/1',
-        LinkType: 'ValidatedBy',
-        Target: 'http://api.example.com/testcase/4'
-    },
-    {
-        id: 6,
-        Source: 'http://api.example.com/requirement/1',
-        LinkType: 'ValidatedBy',
-        Target: 'http://api.example.com/testcase/4'
-    },
-];
+
 const initialState = {
+    getCsvData: [],
     requirementsData: [],
     testCaseData: [],
-    linkedData: [...rows],
+    linkedData: [],
 }
 
 export const linkEditorSlice = createSlice({
@@ -48,17 +12,38 @@ export const linkEditorSlice = createSlice({
     initialState,
     reducers: {
         // get csv data
+        handleGetCsvData: (state, { payload }) => {
+            state.getCsvData = payload
+        },
+
+        // get csv data
         handleRequirementsData: (state, { payload }) => {
             state.requirementsData = payload
         },
-        // import csv data and display in table
+
+        // TestCase data
         handleTestCaseData: (state, { payload }) => {
             state.testCaseData = payload
+        },
+
+        // Link created data
+        handleLinkedData: (state, { payload }) => {
+            if (payload?.actionData?.id) {
+                const index = state.linkedData.findIndex(data => data.id === payload.actionData.id);
+                state.linkedData[index] = payload.data;
+            }
+            else {
+                state.linkedData.push(payload)
+            }
+        },
+        // Created link delete
+        handleDeleteLinkedData: (state, { payload }) => {
+            state.linkedData = state.linkedData?.filter(data => data.id !== payload.id)
         },
     },
 })
 
 // Action creators are generated for each case reducer function
-export const { handleRequirementsData, handleTestCaseData } = linkEditorSlice.actions
+export const { handleRequirementsData, handleTestCaseData, handleGetCsvData, handleLinkedData, handleDeleteLinkedData } = linkEditorSlice.actions
 
 export default linkEditorSlice.reducer
