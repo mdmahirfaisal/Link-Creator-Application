@@ -32,7 +32,14 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData }) => {
     const [linkType, setLinkType] = useState("")
     const [isValidData, setIsValidData] = useState(false);
     const dispatch = useDispatch();
-    const linkModalClose = () => setLinkModalOpen(false);
+
+    const linkModalClose = () => {
+        setLinkModalOpen(false)
+        setIsValidData(false)
+        setReqData(null)
+        setTargetData(null)
+        setLinkType("")
+    };
 
     const loadRequirementData = (data, { name }) => {
         dispatch(handleGetCsvData(data))
