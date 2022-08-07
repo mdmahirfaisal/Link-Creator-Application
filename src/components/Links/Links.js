@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button, Popover, Typography } from '@mui/material';
+import { Box, Button, Popover, Typography } from '@mui/material';
 import { AiFillCaretDown } from 'react-icons/ai';
 import { P } from '../styles/Headings.styles';
 import { Flex } from '../styles/Container.styles';
@@ -54,7 +54,7 @@ const Links = () => {
         <>
             <P color='gray' p='20px 0 0 10px' size='20px'>Create Links</P>
             <Flex items='center' justify='space-between' p='0 2%'>
-                <SelectField handleSelectChange={handleSelectChange} options={names} label="Select Project" styles={{ width: '40%', my: 4, py: 0 }} />
+                <SelectField handleSelectChange={handleSelectChange} options={names} label="Select Project" styles={{ width: '30%', my: 4, py: 0 }} inputStyle={{ fontSize: '14px' }} />
 
                 <Button onClick={handleLinkModalOpen} sx={{ p: '15px 20px', bgcolor: '#6c767d', color: 'white', "&:hover": { bgcolor: '#434d54' } }}>New Link</Button>
             </Flex>
@@ -107,6 +107,8 @@ const Links = () => {
                     </Popover>
                 </Table>
             </TableContainer>
+
+            {!linkedData?.length && <Typography sx={{ textAlign: 'center', color: 'lightgray', fontWeight: 'bold', mt: '10vw' }} variant='h5'>No Links Available Please Create Links</Typography>}
         </>
     );
 };

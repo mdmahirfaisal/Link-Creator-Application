@@ -7,6 +7,9 @@ import { Box, Button, Typography } from '@mui/material';
 import SelectField from '../SelectField/SelectField';
 import { handleRequirementsData, handleTestCaseData, handleGetCsvData, handleLinkedData } from '../../redux/slices/linkEditorSlice';
 import NewLinkTable from '../NewLInkTable/NewLinkTable';
+import { P } from '../styles/Headings.styles';
+import { Flex } from '../styles/Container.styles';
+import { Select } from '../styles/Inputs.styles';
 
 // modal style
 const modalStyle = {
@@ -108,6 +111,16 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData }) => {
                         <Typography variant="h6" sx={{}}>New Link</Typography>
                         <Typography onClick={linkModalClose} variant="h5" sx={{ cursor: 'pointer' }}><AiOutlineClose /></Typography>
                     </Box>
+
+                    <Typography variant="subtitle2" sx={{ color: 'gray', mt: 2 }}>Select Project</Typography>
+                    <Flex items="center" m="0 0 40px 0" >
+                        {/* <P w="100%" rounded="6px 0 0 6px" p="10px 0" color='gray' border="1px solid lightgray">Project abg</P> */}
+                        <Select w="100%" rounded="6px 0 0 6px" p="10px 0" color='gray' border="1px solid lightgray">
+                            <option value="">Project abc</option>
+                        </Select>
+                        <P p="8px 10px" rounded="0 6px 6px 0" border="2px solid lightgray" style={{ flex: 'none', cursor: 'pointer' }}>Load</P>
+                    </Flex>
+
                     {/* --- Modal Body --- */}
 
                     {/* ---- Requirement Data Source ---- */}
@@ -125,7 +138,7 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData }) => {
                     <NewLinkTable headData={["ID", "Resource"]} bodyData={requirementsData} selectedTestCaseData={selectRequirementData} />
 
                     {/* ---- Link type ---- */}
-                    <SelectField handleSelectChange={handleLinkTypeChange} options={linkTypeOptions} label="Link Type" styles={{ mt: 3, mb: 5, width: "50%" }} />
+                    <SelectField handleSelectChange={handleLinkTypeChange} options={linkTypeOptions} label="Link Type" styles={{ mt: 3, mb: 5, width: "30%" }} />
 
                     {/* ---- TestCase Data Source ---- */}
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, pb: 1 }}>

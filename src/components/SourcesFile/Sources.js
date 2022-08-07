@@ -1,9 +1,12 @@
+import { Box } from '@mui/material';
 import React from 'react';
 
 const Sources = () => {
     return (
         <>
-            <h2>this is sources</h2>
+            <Box sx={{ mt: 5, ml: 20, fontSize: '30px' }}>
+                THis Is Sources
+            </Box>
         </>
     );
 };

@@ -8,8 +8,8 @@ const NewLinkTable = ({ headData, bodyData, selectedTestCaseData }) => {
 
 
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{ minWidth: '80vw', mx: 'auto' }} aria-label="simple table">
+        <TableContainer component={Paper} sx={{ maxHeight: '250px' }}>
+            <Table sx={{ minWidth: '80vw', mx: 'auto', }} aria-label="simple table">
                 <TableHead >
                     <TableRow sx={{ bgcolor: '#a7c942', }}>
                         {headData.map((hd, i) => <TableCell

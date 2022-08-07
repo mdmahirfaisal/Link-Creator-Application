@@ -1,9 +1,12 @@
+import { Box } from '@mui/material';
 import React from 'react';
 
 const Targets = () => {
     return (
         <>
-            <h2>this is targets</h2>
+            <Box sx={{ mt: 5, ml: 20, fontSize: '30px' }}>
+                THis Is Targets
+            </Box>
         </>
     );
 };

@@ -6,8 +6,8 @@ import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select from '@mui/material/Select';
 
-const ITEM_HEIGHT = 48;
-const ITEM_PADDING_TOP = 8;
+const ITEM_HEIGHT = 40;
+const ITEM_PADDING_TOP = 5;
 const MenuProps = {
     PaperProps: {
         style: {

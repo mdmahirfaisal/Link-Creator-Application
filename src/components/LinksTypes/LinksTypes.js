@@ -6,7 +6,7 @@ const LinksTypes = () => {
 
     return (
         <>
-            <Box sx={{ mt: 5, ml: 5 }}>
+            <Box sx={{ mt: 5, ml: 20, fontSize: '30px' }}>
                 THis Is Link LInk Types
             </Box>
         </>
