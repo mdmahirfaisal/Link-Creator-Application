@@ -10,7 +10,7 @@ const spanStyle = {
     color: "white",
     fontSize: '12px',
     textAlign: 'center',
-    marginLeft: "20px",
+    marginLeft: "15px",
     marginTop: "3px",
     fontWeight: "bold"
 }
@@ -20,14 +20,14 @@ const NavigationBar = () => {
     return (
         <Nav>
             <NavMenu>
-                <NavLink style={{ padding: '0 40px' }} to='/'>LEA</NavLink>
+                <NavLink style={{ padding: '0 25px' }} to='/'>LEA</NavLink>
                 <NavLink to='/links' activeStyle> Links <span style={spanStyle}>{linkedData?.length}</span> </NavLink>
-                <NavLink to='/linkTypes' activeStyle> Link Types <span style={spanStyle}>42</span></NavLink>
+                <NavLink to='/linkTypes' activeStyle> Link Types <span style={{ ...spanStyle, marginLeft: '10px' }}>0</span></NavLink>
                 <NavLink to='/sources' activeStyle>Sources</NavLink>
                 <NavLink to='/targets' activeStyle>Targets</NavLink>
             </NavMenu>
 
-            <NavLink style={{ marginRight: '30px' }} to='/'>Log Out</NavLink>
+            <NavLink style={{ paddingRight: '30px' }} to='/'>Log Out</NavLink>
         </Nav>
     );
 };

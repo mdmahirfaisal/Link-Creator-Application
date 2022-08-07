@@ -8,7 +8,7 @@ const NewLinkTable = ({ headData, bodyData, selectedTestCaseData }) => {
 
 
     return (
-        <TableContainer component={Paper} sx={{ maxHeight: '250px' }}>
+        <TableContainer component={Paper} sx={{ maxHeight: '240px' }}>
             <Table sx={{ minWidth: '80vw', mx: 'auto', }} aria-label="simple table">
                 <TableHead >
                     <TableRow sx={{ bgcolor: '#a7c942', }}>

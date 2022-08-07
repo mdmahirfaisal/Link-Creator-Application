@@ -15,8 +15,10 @@ export const NavLink = styled(Link)`
   display: flex;
   align-items: center;
   text-decoration: none;
-  padding: 0 1rem;
+  padding: 0 0.6rem;
   height: 100%;
+  font-size: 14px;
+  font-weight: 600;
   cursor: pointer;
   &.active {
     color: white;
