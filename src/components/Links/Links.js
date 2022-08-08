@@ -81,7 +81,7 @@ const Links = () => {
             <CreateLinkModal linkModalOpen={linkModalOpen} setLinkModalOpen={setLinkModalOpen} actionData={actionData} setActionData={setActionData} />
 
             {/* ---- Table ---- */}
-            <TableContainer component={Paper} sx={{ maxHeight: '400px' }}>
+            <TableContainer component={Paper} sx={{ maxHeight: '420px' }}>
                 <Table sx={{ minWidth: 500 }} aria-label="simple table">
                     <TableHead >
                         <TableRow sx={{ bgcolor: '#a7c942', }}>
