@@ -32,8 +32,8 @@ export const linkEditorSlice = createSlice({
                 const index = state.linkedData.findIndex(data => data.id === payload.actionData.id);
                 state.linkedData[index] = payload.data;
             }
-            else {
-                state.linkedData.push(payload)
+            if (!payload?.actionData) {
+                state.linkedData.push(payload.data)
             }
         },
         // Created link delete

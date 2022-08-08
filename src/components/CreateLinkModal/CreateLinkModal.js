@@ -25,7 +25,7 @@ function uuid() {
 
 const linkTypeOptions = ['affectedBy', 'validatedBy', 'satisfiedBy', 'validateRequirement'];
 
-const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData }) => {
+const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData, setActionData }) => {
     const { requirementsData, testCaseData } = useSelector((state => state.linkEditor))
     const [reqData, setReqData] = useState(null);
     const [targetData, setTargetData] = useState(null);
@@ -39,6 +39,7 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData }) => {
         setReqData(null)
         setTargetData(null)
         setLinkType("")
+        setActionData(null)
     };
 
     const loadRequirementData = (data, { name }) => {
@@ -63,11 +64,11 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData }) => {
 
     ///////// Selected data
     const selectRequirementData = (data) => {
-        console.log(data);
+        // console.log(data);
         setReqData(data)
     }
-    const selectTestCaseData = (data) => {
-        console.log(data);
+    const selectTargetData = (data) => {
+        // console.log(data);
         setTargetData(data)
     }
 
@@ -87,13 +88,9 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData }) => {
         if (actionData) {
             dispatch(handleLinkedData({ data, actionData }))
         } else {
-            dispatch(handleLinkedData(data))
+            dispatch(handleLinkedData({ data }))
         }
         linkModalClose()
-        setIsValidData(false)
-        setReqData(null)
-        setTargetData(null)
-        setLinkType("")
     }
 
     // Csv Opener
@@ -154,7 +151,7 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData }) => {
                         <Button variant='outlined' sx={{ color: 'gray', fontSize: '12px', mb: '-8px', py: '2px' }} onClick={() => handleOpenCSV("testCsv")}>Load CSV Data</Button>
                     </Box>
 
-                    <NewLinkTable headData={["ID", "Resource"]} bodyData={testCaseData} selectedTestCaseData={selectTestCaseData} />
+                    <NewLinkTable headData={["ID", "Resource"]} bodyData={testCaseData} selectedTestCaseData={selectTargetData} />
 
                     {/* --- Modal Footer --- */}
 

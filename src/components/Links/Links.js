@@ -78,7 +78,7 @@ const Links = () => {
                 </Box>
             </Flex>
             {/* ----- Link creator modal ----- */}
-            <CreateLinkModal linkModalOpen={linkModalOpen} setLinkModalOpen={setLinkModalOpen} actionData={actionData} />
+            <CreateLinkModal linkModalOpen={linkModalOpen} setLinkModalOpen={setLinkModalOpen} actionData={actionData} setActionData={setActionData} />
 
             {/* ---- Table ---- */}
             <TableContainer component={Paper} sx={{ maxHeight: '400px' }}>
