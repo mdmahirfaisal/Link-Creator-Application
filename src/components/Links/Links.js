@@ -61,18 +61,16 @@ const Links = () => {
             cancelButtonColor: '#d33'
         }).then(async (result) => {
             if (result.isConfirmed) {
-                const res = await session?.run(`MATCH (n:Links {Identifier: '${actionData.Identifier}'}) DETACH DELETE n`)
+                const res = await session?.run(`MATCH (n:Links {Id: '${actionData.Id}'}) DETACH DELETE n`)
                 if (res?.summary?.updateStatistics?._stats?.nodesDeleted > 0) {
                     Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
                     loadLinks.run()
-                }
-                else {
+                } else {
                     Swal.fire('Field!', 'Your file has been not deleted.', 'error')
                 }
             }
         })
     };
-
     return (
         <>
             <P color='gray' p='20px 0 0 10px' size='20px'>Create Links</P>

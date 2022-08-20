@@ -56,17 +56,15 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData, setActio
 
     // Selected data
     const selectRequirementData = (data) => {
-        // console.log(data);
         setReqData(data)
-    }
+    };
     const selectTargetData = (data) => {
-        // console.log(data);
         setTargetData(data)
-    }
+    };
 
     const handleLinkTypeChange = data => {
         setLinkType(data)
-    }
+    };
 
     // Save change modal data
     useEffect(() => {
@@ -77,14 +75,7 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData, setActio
 
     // New link Create and Old link update
     const handleNewLinkLoaded = async () => {
-        // Generate Uniq Id
-        const NewId = uuidv4();
-        const UID = linkedData?.reduce((acc, curr) => {
-            console.log(curr.Id)
-            if (curr.Id === actionData.Id) acc = uuidv4();
-            else { acc = NewId }
-            return acc
-        }, '');
+        const UID = uuidv4();
 
         const data = { Identifier: `http://api.example.com/link/${linkedData?.length + 1}`, Source: reqData.Identifier, LinkType: linkType, Target: targetData.Identifier };
         /// Link Update
@@ -112,7 +103,6 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData, setActio
         }
         linkModalClose()
     };
-
     return (
         <Box>
             <Modal
