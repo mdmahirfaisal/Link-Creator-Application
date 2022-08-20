@@ -12,11 +12,12 @@ import { Neo4jContext, useReadCypher } from 'use-neo4j';
 import Swal from 'sweetalert2';
 
 // UUID
-function uuidv4() {
-    return ([1e7] + -1e3 + -4e3).replace(/[018]/g, c =>
-        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
-    );
-};
+function uuid() {
+    return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+        var r = Math.random() * 16 | 0, v = c === 'x' ? r : (r & 0x3 || 0x8);
+        return v.toString(16);
+    });
+}
 
 // modal style
 const modalStyle = {
@@ -26,7 +27,7 @@ const modalStyle = {
 const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData, setActionData, loadLinks }) => {
     const { driver } = useContext(Neo4jContext);
     const session = driver?.session();
-    const { requirementsData, testCaseData, linkedData } = useSelector((state => state.linkEditor))
+    const { requirementsData, testCaseData } = useSelector((state => state.linkEditor))
     const [reqData, setReqData] = useState(null);
     const [targetData, setTargetData] = useState(null);
     const [linkType, setLinkType] = useState("")
@@ -75,32 +76,54 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData, setActio
 
     // New link Create and Old link update
     const handleNewLinkLoaded = async () => {
-        const UID = uuidv4();
-
-        const data = { Identifier: `http://api.example.com/link/${linkedData?.length + 1}`, Source: reqData.Identifier, LinkType: linkType, Target: targetData.Identifier };
+        const UID = uuid();
+        const data = { Identifier: `http://api.example.com/link/${Math.floor(Math.random() * 99999999)}`, Source: reqData.Identifier, LinkType: linkType, Target: targetData.Identifier };
         /// Link Update
         if (actionData?.Id) {
-            let res = await session?.run(`MATCH (n:Links) WHERE n.Id = $Id SET n+= $updates`, { Id: actionData.Id, updates: { ...data, Id: `${actionData.Id}` } });
-
-            if (res?.summary?.updateStatistics?._containsUpdates) {
-                Swal.fire('Update', 'link update success', 'success')
-                loadLinks.run()
-                res = null;
-            } else {
-                Swal.fire('Field!', 'Link Update field!', 'error')
-            };
+            await session?.run(`MATCH (n:Links) WHERE n.Id = $Id SET n+= $updates`, { Id: actionData.Id, updates: { ...data, Id: `${actionData.Id}` } })
+                .then(res => {
+                    if (res?.summary?.updateStatistics?._containsUpdates) {
+                        loadLinks.run()
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'Link Update success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Link Update field!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    };
+                })
+                .catch(err => console.log(err))
         }
         // Link Create
         else {
-            let res = await session?.run(`CREATE (n:Links {Id: '${UID}', Identifier: '${data.Identifier}', Source: '${data.Source}', LinkType: '${data.LinkType}', Target: '${data.Target}'})`)
-            if (res?.summary?.updateStatistics?._stats?.nodesCreated > 0) {
-                Swal.fire('Created', 'New link create success', 'success')
-                loadLinks.run()
-                res = null;
-            } else {
-                Swal.fire('Field!', 'Link create field!', 'error')
-            };
-        }
+            await session?.run(`MERGE (n:Links {Id: '${UID}', Identifier: '${data.Identifier}', Source: '${data.Source}', LinkType: '${data.LinkType}', Target: '${data.Target}'})`)
+                .then(res => {
+                    if (res?.summary?.updateStatistics?._stats?.nodesCreated > 0) {
+                        loadLinks.run()
+                        Swal.fire({
+                            icon: 'success',
+                            title: 'New link create success',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    } else {
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Link create field!',
+                            showConfirmButton: false,
+                            timer: 1500
+                        })
+                    };
+                })
+                .catch(err => console.log(err))
+        };
         linkModalClose()
     };
     return (

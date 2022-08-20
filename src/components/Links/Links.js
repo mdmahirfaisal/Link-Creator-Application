@@ -63,7 +63,12 @@ const Links = () => {
             if (result.isConfirmed) {
                 const res = await session?.run(`MATCH (n:Links {Id: '${actionData.Id}'}) DETACH DELETE n`)
                 if (res?.summary?.updateStatistics?._stats?.nodesDeleted > 0) {
-                    Swal.fire('Deleted!', 'Your file has been deleted.', 'success')
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'New link create success',
+                        showConfirmButton: false,
+                        timer: 1500
+                    })
                     loadLinks.run()
                 } else {
                     Swal.fire('Field!', 'Your file has been not deleted.', 'error')
