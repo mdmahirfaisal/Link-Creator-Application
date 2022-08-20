@@ -9,7 +9,6 @@ import GlobalStyle from './components/styles/Global.styles';
 import Targets from './components/Targets/Targets';
 
 function App() {
-
   return (
     <div className="App">
       <GlobalStyle />

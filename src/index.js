@@ -7,14 +7,19 @@ import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
 import { store } from './redux/store';
 
+import { Neo4jProvider, createDriver } from 'use-neo4j'
+const driver = createDriver('neo4j+s', 'bf296b97.databases.neo4j.io', 7687, "neo4j", 'L_6XKux4ZuePUc6hg6IdkHY_KfyVyph46HsClJXoKXw')
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <App />
-      </BrowserRouter>
-    </Provider>
+    <Neo4jProvider driver={driver}>
+      <Provider store={store}>
+        <BrowserRouter>
+          <App />
+        </BrowserRouter>
+      </Provider>
+    </Neo4jProvider>
   </React.StrictMode>
 );
 

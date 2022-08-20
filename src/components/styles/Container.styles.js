@@ -30,28 +30,6 @@ export const Div = styled.div`
     background-color: ${props => props.bg};
 `;
 
-// export const Grid = styled.div`
-//     position: ${props => props.position};
-//     display: grid;
-//     width: ${props => props.w};
-//     height: ${props => props.h};
-//     margin: ${props => props.m};
-//     padding: ${props => props.p};
-//     color: ${props => props.color};
-//     background-color: ${props => props.bg};
-//     border: ${props => props.border};
-//     border-top:${props => props.borderT};
-//     border-right:${props => props.borderR};
-//     border-bottom:${props => props.borderB};
-//     border-left:${props => props.borderL};
-//     border-radius: ${props => props.rounded};
-//     grid-template-columns: ${props => `repeat(${props.cols}, 1fr)`};
-//     grid-template-rows: ${props => `repeat(${props.rows}, 1fr)`};
-//     grid-row-gap: ${props => props.rowGap};
-//     grid-column-gap: ${props => props.colGap};
-//     gap: ${props => props.gap};
-// `;
-
 export const GridItem = styled.div`
     position: ${props => props.position};
     width: ${props => props.w};

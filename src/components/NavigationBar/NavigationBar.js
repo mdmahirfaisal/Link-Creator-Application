@@ -26,7 +26,6 @@ const NavigationBar = () => {
                 <NavLink to='/sources' activeStyle>Sources</NavLink>
                 <NavLink to='/targets' activeStyle>Targets</NavLink>
             </NavMenu>
-            <NavLink style={{ paddingRight: '30px' }} to='/'>Log Out</NavLink>
         </Nav>
     );
 };

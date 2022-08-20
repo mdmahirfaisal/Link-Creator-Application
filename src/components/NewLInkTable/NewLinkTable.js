@@ -25,8 +25,8 @@ const NewLinkTable = ({ headData, bodyData, selectedTestCaseData }) => {
                             selectedTestCaseData(data)
                             setIsSelected(index)
                         }} key={index}>
-                            <TableCell sx={tableStyle} align="left">{index + 1}</TableCell>
-                            <TableCell sx={tableStyle} align="left">{data?.title}</TableCell>
+                            <TableCell sx={tableStyle} align="left">{data.Id}</TableCell>
+                            <TableCell sx={tableStyle} align="left">{data?.Title}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
