@@ -21,10 +21,10 @@ const NavigationBar = () => {
         <Nav>
             <NavMenu>
                 <NavLink style={{ padding: '0 25px' }} to='/'>LEA</NavLink>
-                <NavLink to='/links' activeStyle> Links <span style={spanStyle}>{linkedData?.length}</span> </NavLink>
-                <NavLink to='/linkTypes' activeStyle> Link Types <span style={{ ...spanStyle, marginLeft: '10px' }}>0</span></NavLink>
-                <NavLink to='/sources' activeStyle>Sources</NavLink>
-                <NavLink to='/targets' activeStyle>Targets</NavLink>
+                <NavLink to='/links' > Links <span style={spanStyle}>{linkedData?.length}</span> </NavLink>
+                <NavLink to='/linkTypes' > Link Types <span style={{ ...spanStyle, marginLeft: '10px' }}>0</span></NavLink>
+                <NavLink to='/sources' >Sources</NavLink>
+                <NavLink to='/targets' >Targets</NavLink>
             </NavMenu>
         </Nav>
     );

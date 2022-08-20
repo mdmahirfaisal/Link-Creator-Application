@@ -11,6 +11,13 @@ import { Flex } from '../styles/Container.styles';
 import { Neo4jContext, useReadCypher } from 'use-neo4j';
 import Swal from 'sweetalert2';
 
+// UUID
+function uuidv4() {
+    return ([1e7] + -1e3 + -4e3).replace(/[018]/g, c =>
+        (c ^ crypto.getRandomValues(new Uint8Array(1))[0] & 15 >> c / 4).toString(16)
+    );
+};
+
 // modal style
 const modalStyle = {
     position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', bgcolor: 'background.paper', border: '0', boxShadow: 5, minHeight: '50vh', maxHeight: '80vh', pt: 1, px: 2, pb: 5, borderRadius: 5, overflowY: 'scroll',
@@ -70,11 +77,20 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData, setActio
 
     // New link Create and Old link update
     const handleNewLinkLoaded = async () => {
-        const data = { Identifier: `http://api.example.com/link/${linkedData?.length + 1}`, Source: reqData.Identifier, LinkType: linkType, Target: targetData.Identifier };
+        // Generate Uniq Id
+        const NewId = uuidv4();
+        const UID = linkedData?.reduce((acc, curr) => {
+            console.log(curr.Id)
+            if (curr.Id === actionData.Id) acc = uuidv4();
+            else { acc = NewId }
+            return acc
+        }, '');
 
+        const data = { Identifier: `http://api.example.com/link/${linkedData?.length + 1}`, Source: reqData.Identifier, LinkType: linkType, Target: targetData.Identifier };
         /// Link Update
-        if (actionData?.Identifier) {
-            let res = await session?.run(`MATCH (n:Links) WHERE n.Identifier = $Identifier SET n+= $updates`, { Identifier: actionData.Identifier, updates: { ...data, Identifier: actionData.Identifier } });
+        if (actionData?.Id) {
+            let res = await session?.run(`MATCH (n:Links) WHERE n.Id = $Id SET n+= $updates`, { Id: actionData.Id, updates: { ...data, Id: `${actionData.Id}` } });
+
             if (res?.summary?.updateStatistics?._containsUpdates) {
                 Swal.fire('Update', 'link update success', 'success')
                 loadLinks.run()
@@ -85,7 +101,7 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData, setActio
         }
         // Link Create
         else {
-            let res = await session?.run(`CREATE (n:Links {Identifier: '${data.Identifier}', Source: '${data.Source}', LinkType: '${data.LinkType}', Target: '${data.Target}'})`)
+            let res = await session?.run(`CREATE (n:Links {Id: '${UID}', Identifier: '${data.Identifier}', Source: '${data.Source}', LinkType: '${data.LinkType}', Target: '${data.Target}'})`)
             if (res?.summary?.updateStatistics?._stats?.nodesCreated > 0) {
                 Swal.fire('Created', 'New link create success', 'success')
                 loadLinks.run()
@@ -96,6 +112,7 @@ const CreateLinkModal = ({ linkModalOpen, setLinkModalOpen, actionData, setActio
         }
         linkModalClose()
     };
+
     return (
         <Box>
             <Modal
